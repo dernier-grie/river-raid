@@ -1,5 +1,9 @@
 require "src.globals"
 
+require "src.Player"
+
+local player = Player:new(WIDTH / 2, HEIGHT / 2)
+
 function love.load()
     love.window.setTitle("River raid")
     love.window.setMode(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -9,14 +13,15 @@ function love.load()
 end
 
 function love.update(dt)
-    -- update game
+    player:update(dt)
+
     love.keyboard.keypressed = {}
 end
 
 function love.draw()
     love.graphics.scale(SCREEN_SCALE)
 
-    love.graphics.draw(Texture, Quads.plane[4], 0, 0)
+    player:draw()
 end
 
 function love.keyboard.waspressed(key)
