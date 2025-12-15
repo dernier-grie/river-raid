@@ -4,8 +4,6 @@ local X_MIN = WIDTH / 10
 local X_MAX = WIDTH * 9 / 10
 local TERRAIN_RESOLUTION = 4
 
-local debugPointCounter = math.floor(PLANE_HEIGHT / TERRAIN_RESOLUTION)
-
 function Terrain:new()
     local x1, x2 = X_MIN, X_MAX
     local pointsLeft = { 0, -1, x1, -1 }
@@ -28,7 +26,6 @@ function Terrain:new()
     local this = {
         ["pointsLeft"] = pointsLeft,
         ["pointsRight"] = pointsRight,
-        ["debugPointIndex"] = 1
     }
 
     self.__index = self
@@ -36,12 +33,22 @@ function Terrain:new()
     return this
 end
 
-function Terrain:update(dt)
-    if love.keyboard.waspressed("up") then
-        self.debugPointIndex = math.max(1, self.debugPointIndex - 2)
-    elseif love.keyboard.waspressed("down") then
-        self.debugPointIndex = math.min(#self.pointsLeft - 1, self.debugPointIndex + 2)
+function Terrain:intersects(rect)
+    local y = rect.y
+    local index = math.ceil(y / TERRAIN_RESOLUTION) * 2 + 1 + 4
+    local indexCounter = math.floor(rect.height / TERRAIN_RESOLUTION)
+
+    local _intersects = false
+    for i = 0, indexCounter do
+        local lx = self.pointsLeft[index + (i * 2)]
+        local rx = self.pointsRight[index + (i * 2)]
+        if rect.x <= lx or rect.x + rect.width >= rx then
+            _intersects = true
+            break
+        end
     end
+
+    return _intersects
 end
 
 function Terrain:draw()
@@ -51,18 +58,4 @@ function Terrain:draw()
     love.graphics.setColor(0.113, 0.168, 0.325)
     love.graphics.line(self.pointsLeft)
     love.graphics.line(self.pointsRight)
-
-    love.graphics.setColor(0, 1, 0)
-    for i = 0, debugPointCounter do
-        love.graphics.circle(
-            "fill",
-            self.pointsLeft[self.debugPointIndex + 2 * i],
-            self.pointsLeft[self.debugPointIndex + 1 + 2 * i],
-            1)
-        love.graphics.circle(
-            "fill",
-            self.pointsRight[self.debugPointIndex + 2 * i],
-            self.pointsRight[self.debugPointIndex + 1 + 2 * i],
-            1)
-    end
 end

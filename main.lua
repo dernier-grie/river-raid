@@ -6,6 +6,7 @@ require "src.Terrain"
 local player = Player:new(WIDTH / 2, HEIGHT / 2)
 local terrain = Terrain:new()
 
+local shouldCrash = terrain:intersects(player)
 function love.load()
     love.window.setTitle("River raid")
     love.window.setMode(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -17,7 +18,10 @@ end
 
 function love.update(dt)
     player:update(dt)
-    terrain:update()
+    if player.dx ~= 0 then
+        shouldCrash = terrain:intersects(player)
+    end
+
 
     love.keyboard.keypressed = {}
 end
@@ -27,6 +31,10 @@ function love.draw()
 
     terrain:draw()
     player:draw()
+
+    if shouldCrash then
+        love.graphics.print("Crash!")
+    end
 end
 
 function love.keyboard.waspressed(key)
