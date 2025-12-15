@@ -38,5 +38,6 @@ function Player:update(dt)
 end
 
 function Player:draw()
+    love.graphics.setColor(1, 1, 1)
     love.graphics.draw(Texture, Quads.plane[self.quads_index], self.x, self.y)
 end
