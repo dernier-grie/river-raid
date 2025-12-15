@@ -1,8 +1,10 @@
 require "src.globals"
 
 require "src.Player"
+require "src.Terrain"
 
 local player = Player:new(WIDTH / 2, HEIGHT / 2)
+local terrain = Terrain:new()
 
 function love.load()
     love.window.setTitle("River raid")
@@ -10,10 +12,12 @@ function love.load()
     love.graphics.setBackgroundColor(0.160, 0.678, 1)
 
     love.keyboard.keypressed = {}
+    love.graphics.setLineWidth(1)
 end
 
 function love.update(dt)
     player:update(dt)
+    terrain:update()
 
     love.keyboard.keypressed = {}
 end
@@ -21,6 +25,7 @@ end
 function love.draw()
     love.graphics.scale(SCREEN_SCALE)
 
+    terrain:draw()
     player:draw()
 end
 
