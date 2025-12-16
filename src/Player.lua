@@ -3,8 +3,8 @@ Player = {}
 function Player:new(x, y)
     local quads_index_start = math.ceil(#Quads.plane / 2)
     local this = {
-        ["x"] = x - PLANE_WIDTH / 2,
-        ["y"] = y - PLANE_HEIGHT / 2,
+        ["x"] = x,
+        ["y"] = y,
         ["width"] = PLANE_WIDTH,
         ["height"] = PLANE_HEIGHT,
         ["dx"] = 0,
@@ -39,5 +39,5 @@ end
 
 function Player:draw()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(Texture, Quads.plane[self.quads_index], self.x, self.y)
+    love.graphics.draw(Texture, Quads.plane[self.quads_index], self.x, self.y, 0, 1, 1, self.width / 2, self.height / 2)
 end
