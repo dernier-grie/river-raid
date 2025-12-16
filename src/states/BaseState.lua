@@ -18,5 +18,5 @@ end
 function BaseState:update(dt)
 end
 
-function BaseState:render()
+function BaseState:draw()
 end
