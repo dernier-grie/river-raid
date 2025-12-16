@@ -3,10 +3,12 @@ PlayState = BaseState:new()
 function PlayState:new()
     local player = Player:new(WIDTH / 2, HEIGHT - PLANE_HEIGHT)
     local terrain = Terrain:new()
+    local ui = UI:new()
 
     local this = {
         ["player"] = player,
         ["terrain"] = terrain,
+        ["ui"] = ui,
     }
 
     self.__index = self
@@ -35,5 +37,6 @@ end
 
 function PlayState:draw()
     self.terrain:draw()
+    self.ui:draw()
     self.player:draw()
 end
