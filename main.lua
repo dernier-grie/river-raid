@@ -19,7 +19,15 @@ end
 function love.update(dt)
     player:update(dt)
     if player.dx ~= 0 then
-        shouldCrash = terrain:intersects(player)
+        local width = player.width -
+            (player["banking"]) * math.abs(player["quads_index"] - player["quads_index_start"]) /
+            player["quads_index_gap"]
+        shouldCrash = terrain:intersects({
+            x = player.x - width / 2,
+            y = player.y,
+            width = width,
+            height = player.height,
+        })
     end
 
 

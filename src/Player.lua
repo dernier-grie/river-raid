@@ -7,12 +7,13 @@ function Player:new(x, y)
         ["y"] = y,
         ["width"] = PLANE_WIDTH,
         ["height"] = PLANE_HEIGHT,
+        ["banking"] = PLANE_WIDTH / 2,
         ["dx"] = 0,
         ["ddx"] = 3,
         ["speed"] = 150,
         ["quads_index_start"] = quads_index_start,
         ["quads_index"] = quads_index_start,
-        ["quads_index_gap"] = math.floor(#Quads.plane / 2)
+        ["quads_index_gap"] = math.floor(#Quads.plane / 2),
     }
 
     self.__index = self
