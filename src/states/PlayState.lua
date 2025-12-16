@@ -1,13 +1,13 @@
 PlayState = BaseState:new()
 
-function PlayState:new()
+function PlayState:new(terrain)
     local player = Player:new(WIDTH / 2, HEIGHT - PLANE_HEIGHT)
-    local terrain = Terrain:new()
+    local _terrain = terrain or Terrain:new()
     local ui = UI:new()
 
     local this = {
         ["player"] = player,
-        ["terrain"] = terrain,
+        ["terrain"] = _terrain,
         ["ui"] = ui,
     }
 

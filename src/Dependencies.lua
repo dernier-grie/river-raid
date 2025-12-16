@@ -8,4 +8,5 @@ require "src.UI"
 
 require "src.StateStack"
 require "src.states.BaseState"
+require "src.states.TitleState"
 require "src.states.PlayState"
