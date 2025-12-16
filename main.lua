@@ -4,7 +4,7 @@ function love.load()
     love.window.setTitle("River raid")
     love.window.setMode(SCREEN_WIDTH, SCREEN_HEIGHT)
     love.graphics.setBackgroundColor(0.160, 0.678, 1)
-    love.graphics.setLineWidth(1)
+    love.graphics.setLineWidth(LINE_WIDTH)
 
     GStateStack = StateStack:new(
         {
