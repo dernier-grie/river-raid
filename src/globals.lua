@@ -55,3 +55,36 @@ Quads.title = {
     ["rightKey"] = love.graphics.newQuad(100, 22, 11, 9, Texture),
     ["shootKey"] = love.graphics.newQuad(111, 22, 30, 9, Texture),
 }
+
+Quads.pickups = {
+    ["fuel"] = love.graphics.newQuad(26, 31, 9, 10, Texture)
+}
+
+Quads.explosion = {}
+for i = 0, 4 do
+    table.insert(Quads.explosion, love.graphics.newQuad(100 + 12 * i, 32, 12, 12, Texture))
+end
+
+Quads.bridge = {
+    ["start"] = love.graphics.newQuad(17, 31, 3, 17, Texture),
+    ["middle"] = love.graphics.newQuad(20, 31, 3, 17, Texture),
+    ["end"] = love.graphics.newQuad(23, 31, 3, 17, Texture),
+}
+
+
+Quads.floaters = {
+    ["platform"] = love.graphics.newQuad(61, 31, 16, 16, Texture),
+    ["boat"] = love.graphics.newQuad(77, 34, 23, 13, Texture),
+}
+
+Quads.fliers = {
+    ["plane"] = love.graphics.newQuad(35, 30, 14, 18, Texture),
+    ["planeSmall"] = love.graphics.newQuad(48, 31, 12, 16, Texture)
+}
+
+Quads.decorations = {
+    ["tree"] = love.graphics.newQuad(162, 34, 12, 14, Texture),
+    ["treeSmall"] = love.graphics.newQuad(174, 35, 11, 13, Texture),
+    ["house"] = love.graphics.newQuad(185, 37, 16, 11, Texture),
+    ["lighthouse"] = love.graphics.newQuad(201, 37, 11, 11, Texture),
+}
