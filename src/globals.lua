@@ -15,6 +15,7 @@ DIGIT_WIDTH = 4
 SCORE_LETTER_SPACING = 1
 SCORE_LENGTH = 5
 ICON_SIZE = 9
+BULLET_WIDTH, BULLET_HEIGHT = 6, 7
 
 for i = 0, 8 do
     table.insert(Quads.plane, love.graphics.newQuad(
@@ -32,8 +33,8 @@ for i = 0, 9 do
 end
 
 Quads.bullet = {
-    love.graphics.newQuad(32, 22, 6, 8, Texture),
-    love.graphics.newQuad(38, 22, 6, 8, Texture),
+    love.graphics.newQuad(32, 22, 6, 7, Texture),
+    love.graphics.newQuad(38, 22, 6, 7, Texture),
 }
 
 Quads.UI = {
