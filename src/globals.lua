@@ -66,9 +66,10 @@ for i = 0, 4 do
 end
 
 Quads.bridge = {
-    ["start"] = love.graphics.newQuad(17, 31, 3, 17, Texture),
-    ["middle"] = love.graphics.newQuad(20, 31, 3, 17, Texture),
-    ["end"] = love.graphics.newQuad(23, 31, 3, 17, Texture),
+    ["q1"] = love.graphics.newQuad(17, 31, 2, 17, Texture),
+    ["q2"] = love.graphics.newQuad(19, 31, 2, 17, Texture),
+    ["q3"] = love.graphics.newQuad(21, 31, 2, 17, Texture),
+    ["q4"] = love.graphics.newQuad(23, 31, 2, 17, Texture),
 }
 
 
