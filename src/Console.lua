@@ -1,4 +1,4 @@
-UI = {}
+Console = {}
 
 local paddingVertical = 3
 local boxWidth, boxHeight = (DIGIT_WIDTH + SCORE_LETTER_SPACING) * SCORE_LENGTH - SCORE_LETTER_SPACING + 3, ICON_SIZE
@@ -14,7 +14,7 @@ local progressWidth = ((boxWidth - progressInsetX * 2 + 1 - progressGap * (progr
 local progressHeight = boxHeight - progressInsetY * 2
 local progressStep = progressWidth + progressGap
 
-function UI:new()
+function Console:new()
     local icons = {
         { "bullet", math.floor(highlightWhitespace / 2),                                                    paddingVertical },
         { "score",  math.floor(highlightWhitespace / 2) + ICON_SIZE + boxWidth + highlightWhitespace,       paddingVertical },
@@ -30,23 +30,40 @@ function UI:new()
     local bullets = {
         ["x"] = boxes[1].x1 + progressInsetX,
         ["y"] = boxes[1].y1 + progressInsetY,
-        ["counter"] = progressCounter
+        ["counter"] = progressCounter,
+        ["counterStart"] = progressCounter,
+        ["t"] = 0,
+        ["timeRecharge"] = 2
     }
 
     local fuel = {
         ["x"] = boxes[3].x1 + progressInsetX,
         ["y"] = boxes[3].y1 + progressInsetY,
-        ["counter"] = progressCounter
+        ["counter"] = progressCounter,
+        ["counterStart"] = progressCounter,
+        ["t"] = 0,
+        ["timeExhaust"] = 60,
+    }
+
+    local fuelProgress = {
+        ["x"] = boxes[3].x1 + boxWidth - 1,
+        ["x1"] = boxes[3].x1 + 1,
+        ["x2"] = boxes[3].x1 + boxWidth - 1,
+        ["y"] = boxes[3].y1,
     }
 
     local score = Score:new(boxes[2].x1 + 2, boxes[2].y1 + 2)
+    local scoreTimer = { 0, 0.01 } -- delay increment
 
     local this = {
         ["icons"] = icons,
         ["boxes"] = boxes,
         ["bullets"] = bullets,
         ["score"] = score,
+        ["scoreTimer"] = scoreTimer,
         ["fuel"] = fuel,
+        ["fuelProgress"] = fuelProgress,
+        ["outOfFuel"] = false
     }
 
     self.__index = self
@@ -54,13 +71,53 @@ function UI:new()
     return this
 end
 
-function UI:draw()
+function Console:canFire()
+    return self.bullets.counter > 0
+end
+
+function Console:fire()
+    self.bullets.counter = self.bullets.counter - 1
+end
+
+function Console:outOfFuel()
+    return self.fuel.counter == 0
+end
+
+function Console:update(dt)
+    self.scoreTimer[1] = self.scoreTimer[1] + dt
+    if self.scoreTimer[1] > self.scoreTimer[2] then
+        self.scoreTimer[1] = self.scoreTimer[1] % self.scoreTimer[2]
+        self.score:increment()
+    end
+
+    if self.bullets.counter < self.bullets.counterStart then
+        self.bullets.t = self.bullets.t + dt
+        if self.bullets.t > self.bullets.timeRecharge then
+            self.bullets.t = self.bullets.t % self.bullets.timeRecharge
+            self.bullets.counter = math.min(self.bullets.counterStart, self.bullets.counter + 1)
+        end
+    end
+
+    if self.fuel.counter > 0 then
+        self.fuel.t = self.fuel.t + dt
+        self.fuel.counter = math.floor((1 - (self.fuel.t / self.fuel.timeExhaust)) * self.fuel.counterStart) + 1
+
+        self.fuelProgress.x = self.fuelProgress.x1 +
+            math.ceil((self.fuelProgress.x2 - self.fuelProgress.x1) * (1 - self.fuel.t / self.fuel.timeExhaust))
+
+        if self.fuel.counter == 0 then
+            self.outOfFuel = true
+        end
+    end
+end
+
+function Console:draw()
     love.graphics.setColor(0.180, 0.133, 0.184)
     love.graphics.rectangle("fill", 0, 0, WIDTH, backgroundHeight)
 
     love.graphics.setColor(1, 1, 1)
     for _, icon in pairs(self.icons) do
-        love.graphics.draw(Texture, Quads.UI[icon[1]], icon[2], icon[3])
+        love.graphics.draw(Texture, Quads.console[icon[1]], icon[2], icon[3])
     end
 
     for _, box in pairs(self.boxes) do
@@ -81,4 +138,7 @@ function UI:draw()
             self.fuel.y,
             progressWidth, progressHeight)
     end
+
+    love.graphics.draw(Texture, Quads.console.fuelProgress, self.fuelProgress.x, self.fuelProgress.y)
+    -- self.fuel.progress[1] + 1 + math.ceil(self.fuel.progress[3] * (1 - self.fuel.t / self.fuel.timeExhaust)),
 end
