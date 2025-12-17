@@ -3,12 +3,12 @@ PlayState = BaseState:new()
 function PlayState:new(terrain)
     local player = Player:new(WIDTH / 2, HEIGHT - PLANE_HEIGHT)
     local _terrain = terrain or Terrain:new()
-    local ui = UI:new()
+    local console = Console:new()
 
     local this = {
         ["player"] = player,
         ["terrain"] = _terrain,
-        ["ui"] = ui,
+        ["console"] = console,
         ["bullets"] = {}
     }
 
@@ -20,6 +20,8 @@ end
 
 function PlayState:update(dt)
     self.player:update(dt)
+    self.console:update(dt)
+
     if self.player.dx ~= 0 then
         local width = self.player:getWidth()
         local shouldCrash = self.terrain:intersects({
@@ -40,13 +42,15 @@ function PlayState:update(dt)
         end
     end
 
-    if love.keyboard.waspressed("space") then
-        if self.ui.bullets.counter > 0 then
-            self.ui.bullets.counter = self.ui.bullets.counter - 1
-            local x1, x2 = self.player:getFireXs()
-            table.insert(self.bullets, Bullet:new(x1, self.player.y - self.player.height / 2, -1))
-            table.insert(self.bullets, Bullet:new(x2, self.player.y - self.player.height / 2, -1))
-        end
+    if love.keyboard.waspressed("space") and self.console:canFire() then
+        local x1, x2 = self.player:getFireXs()
+        self.console:fire()
+        table.insert(self.bullets, Bullet:new(x1, self.player.y - self.player.height / 2, -1))
+        table.insert(self.bullets, Bullet:new(x2, self.player.y - self.player.height / 2, -1))
+    end
+
+    if self.console.outOfFuel then
+        GStateStack:push(BaseState:new()) -- actual gameover
     end
 end
 
@@ -56,5 +60,5 @@ function PlayState:draw()
     for _, bullet in pairs(self.bullets) do
         bullet:draw()
     end
-    self.ui:draw()
+    self.console:draw()
 end

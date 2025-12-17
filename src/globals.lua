@@ -37,7 +37,7 @@ Quads.bullet = {
     love.graphics.newQuad(38, 22, 6, 7, Texture),
 }
 
-Quads.UI = {
+Quads.console = {
     ["bullet"] = love.graphics.newQuad(0, 22, 9, 9, Texture),
     ["score"] = love.graphics.newQuad(9, 22, 9, 9, Texture),
     ["fuel"] = love.graphics.newQuad(18, 22, 9, 9, Texture),

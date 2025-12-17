@@ -17,6 +17,6 @@ end
 function Box:draw()
     love.graphics.line(self.x1, self.y1 + 0.5, self.x2, self.y1 + 0.5)
     love.graphics.line(self.x1, self.y2 - 0.5, self.x2, self.y2 - 0.5)
-    love.graphics.draw(Texture, Quads.UI.boxStart, self.x1 - 1, self.y1)
-    love.graphics.draw(Texture, Quads.UI.boxEnd, self.x2, self.y1)
+    love.graphics.draw(Texture, Quads.console.boxStart, self.x1 - 1, self.y1)
+    love.graphics.draw(Texture, Quads.console.boxEnd, self.x2, self.y1)
 end

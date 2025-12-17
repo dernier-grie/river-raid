@@ -2,9 +2,9 @@ require "src.globals"
 
 require "src.Player"
 require "src.Terrain"
+require "src.Console"
 require "src.Score"
 require "src.Box"
-require "src.UI"
 require "src.Bullet"
 
 require "src.StateStack"
