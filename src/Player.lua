@@ -21,7 +21,12 @@ function Player:new(x, y)
     return this
 end
 
-function Player:fireCoords()
+function Player:getWidth()
+    return self.width -
+    (self["banking"]) * math.abs(self["quadsIndex"] - self["quadsIndexStart"]) / self["quadsIndexGap"]
+end
+
+function Player:getFireXs()
     local fireGap = PLANE_WIDTH / 6 +
         PLANE_WIDTH / 6 * (1 - math.abs(self.quadsIndex - self.quadsIndexStart) / self.quadsIndexGap)
     return self.x - fireGap, self.x + fireGap

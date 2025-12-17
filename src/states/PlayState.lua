@@ -21,9 +21,7 @@ end
 function PlayState:update(dt)
     self.player:update(dt)
     if self.player.dx ~= 0 then
-        local width = self.player.width -
-            (self.player["banking"]) * math.abs(self.player["quadsIndex"] - self.player["quadsIndexStart"]) /
-            self.player["quadsIndexGap"]
+        local width = self.player:getWidth()
         local shouldCrash = self.terrain:intersects({
             x = self.player.x - width / 2,
             y = self.player.y,
@@ -45,7 +43,7 @@ function PlayState:update(dt)
     if love.keyboard.waspressed("space") then
         if self.ui.bullets.counter > 0 then
             self.ui.bullets.counter = self.ui.bullets.counter - 1
-            local x1, x2 = self.player:fireCoords()
+            local x1, x2 = self.player:getFireXs()
             table.insert(self.bullets, Bullet:new(x1, self.player.y - self.player.height / 2, -1))
             table.insert(self.bullets, Bullet:new(x2, self.player.y - self.player.height / 2, -1))
         end
