@@ -1,7 +1,7 @@
 Player = {}
 
 function Player:new(x, y)
-    local quads_index_start = math.ceil(#Quads.plane / 2)
+    local quadsIndexStart = math.ceil(#Quads.plane / 2)
     local this = {
         ["x"] = x,
         ["y"] = y,
@@ -11,14 +11,20 @@ function Player:new(x, y)
         ["dx"] = 0,
         ["ddx"] = 3,
         ["speed"] = 150,
-        ["quads_index_start"] = quads_index_start,
-        ["quads_index"] = quads_index_start,
-        ["quads_index_gap"] = math.floor(#Quads.plane / 2),
+        ["quadsIndexStart"] = quadsIndexStart,
+        ["quadsIndex"] = quadsIndexStart,
+        ["quadsIndexGap"] = math.floor(#Quads.plane / 2),
     }
 
     self.__index = self
     setmetatable(this, self)
     return this
+end
+
+function Player:fireCoords()
+    local fireGap = PLANE_WIDTH / 6 +
+        PLANE_WIDTH / 6 * (1 - math.abs(self.quadsIndex - self.quadsIndexStart) / self.quadsIndexGap)
+    return self.x - fireGap, self.x + fireGap
 end
 
 function Player:update(dt)
@@ -35,10 +41,10 @@ function Player:update(dt)
     end
 
     self.x = self.x + self.dx * self.speed * dt
-    self.quads_index = self.quads_index_start + math.ceil(self.dx * self.quads_index_gap)
+    self.quadsIndex = self.quadsIndexStart + math.ceil(self.dx * self.quadsIndexGap)
 end
 
 function Player:draw()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(Texture, Quads.plane[self.quads_index], self.x, self.y, 0, 1, 1, self.width / 2, self.height / 2)
+    love.graphics.draw(Texture, Quads.plane[self.quadsIndex], self.x, self.y, 0, 1, 1, self.width / 2, self.height / 2)
 end

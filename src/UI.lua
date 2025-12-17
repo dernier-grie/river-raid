@@ -30,13 +30,13 @@ function UI:new()
     local bullets = {
         ["x"] = boxes[1].x1 + progressInsetX,
         ["y"] = boxes[1].y1 + progressInsetY,
-        ["counter"] = 3
+        ["counter"] = progressCounter
     }
 
     local fuel = {
         ["x"] = boxes[3].x1 + progressInsetX,
         ["y"] = boxes[3].y1 + progressInsetY,
-        ["counter"] = 4
+        ["counter"] = progressCounter
     }
 
     local score = Score:new(boxes[2].x1 + 2, boxes[2].y1 + 2)
