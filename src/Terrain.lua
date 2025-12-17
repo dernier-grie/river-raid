@@ -52,10 +52,10 @@ function Terrain:intersects(rect)
 end
 
 function Terrain:draw()
-    love.graphics.setColor(0, 0.529, 0.317)
+    love.graphics.setColor(0.196, 0.2, 0.325)
     love.graphics.polygon("fill", self.pointsLeft)
     love.graphics.polygon("fill", self.pointsRight)
-    love.graphics.setColor(0.113, 0.168, 0.325)
+    love.graphics.setColor(0.180, 0.133, 0.184)
     love.graphics.line(self.pointsLeft)
     love.graphics.line(self.pointsRight)
 end

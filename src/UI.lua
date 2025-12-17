@@ -55,7 +55,7 @@ function UI:new()
 end
 
 function UI:draw()
-    love.graphics.setColor(0.113, 0.168, 0.325)
+    love.graphics.setColor(0.180, 0.133, 0.184)
     love.graphics.rectangle("fill", 0, 0, WIDTH, backgroundHeight)
 
     love.graphics.setColor(1, 1, 1)
@@ -67,7 +67,7 @@ function UI:draw()
         box:draw()
     end
 
-    love.graphics.setColor(0.760, 0.7647, 0.7803)
+    love.graphics.setColor(0.607, 0.670, 0.698)
     for i = 0, self.bullets.counter - 1 do
         love.graphics.rectangle("fill", self.bullets.x + i * progressStep,
             self.bullets.y,
