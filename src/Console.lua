@@ -115,13 +115,17 @@ function Console:draw()
     love.graphics.setColor(0.180, 0.133, 0.184)
     love.graphics.rectangle("fill", 0, 0, WIDTH, backgroundHeight)
 
-    love.graphics.setColor(1, 1, 1)
-    for _, icon in pairs(self.icons) do
-        love.graphics.draw(Texture, Quads.console[icon[1]], icon[2], icon[3])
+    love.graphics.setColor(0.243, 0.208, 0.274)
+    for i = 0, self.bullets.counterStart - 1 do
+        love.graphics.rectangle("fill", self.bullets.x + i * progressStep,
+            self.bullets.y,
+            progressWidth, progressHeight)
     end
 
-    for _, box in pairs(self.boxes) do
-        box:draw()
+    for i = 0, self.fuel.counterStart - 1 do
+        love.graphics.rectangle("fill", self.fuel.x + i * progressStep,
+            self.fuel.y,
+            progressWidth, progressHeight)
     end
 
     love.graphics.setColor(0.607, 0.670, 0.698)
@@ -131,14 +135,21 @@ function Console:draw()
             progressWidth, progressHeight)
     end
 
-    self.score:draw()
-
     for i = 0, self.fuel.counter - 1 do
         love.graphics.rectangle("fill", self.fuel.x + i * progressStep,
             self.fuel.y,
             progressWidth, progressHeight)
     end
 
+    love.graphics.setColor(1, 1, 1)
+    for _, icon in pairs(self.icons) do
+        love.graphics.draw(Texture, Quads.console[icon[1]], icon[2], icon[3])
+    end
+
+    for _, box in pairs(self.boxes) do
+        box:draw()
+    end
     love.graphics.draw(Texture, Quads.console.fuelProgress, self.fuelProgress.x, self.fuelProgress.y)
-    -- self.fuel.progress[1] + 1 + math.ceil(self.fuel.progress[3] * (1 - self.fuel.t / self.fuel.timeExhaust)),
+
+    self.score:draw()
 end
