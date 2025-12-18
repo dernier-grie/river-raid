@@ -22,14 +22,14 @@ function Console:new()
     }
 
     local boxes = {
-        Box:new(icons[1][2] + ICON_SIZE, icons[1][3], boxWidth, boxHeight),
-        Box:new(icons[2][2] + ICON_SIZE, icons[2][3], boxWidth, boxHeight),
-        Box:new(icons[3][2] + ICON_SIZE, icons[3][3], boxWidth, boxHeight),
+        LineBox:new(icons[1][2] + ICON_SIZE - 0.5, icons[1][3], boxWidth + 1.5, boxHeight),
+        LineBox:new(icons[2][2] + ICON_SIZE - 0.5, icons[2][3], boxWidth + 1.5, boxHeight),
+        LineBox:new(icons[3][2] + ICON_SIZE - 0.5, icons[3][3], boxWidth + 1.5, boxHeight),
     }
 
     local bullets = {
-        ["x"] = boxes[1].x1 + progressInsetX,
-        ["y"] = boxes[1].y1 + progressInsetY,
+        ["x"] = boxes[1].x + progressInsetX,
+        ["y"] = boxes[1].y + progressInsetY,
         ["counter"] = progressCounter,
         ["counterStart"] = progressCounter,
         ["t"] = 0,
@@ -37,8 +37,8 @@ function Console:new()
     }
 
     local fuel = {
-        ["x"] = boxes[3].x1 + progressInsetX,
-        ["y"] = boxes[3].y1 + progressInsetY,
+        ["x"] = boxes[3].x + progressInsetX,
+        ["y"] = boxes[3].y + progressInsetY,
         ["counter"] = progressCounter,
         ["counterStart"] = progressCounter,
         ["t"] = 0,
@@ -46,13 +46,13 @@ function Console:new()
     }
 
     local fuelProgress = {
-        ["x"] = boxes[3].x1 + boxWidth - 1,
-        ["x1"] = boxes[3].x1 + 1,
-        ["x2"] = boxes[3].x1 + boxWidth - 1,
-        ["y"] = boxes[3].y1,
+        ["x"] = boxes[3].x + boxWidth - 1,
+        ["x1"] = boxes[3].x + 1,
+        ["x2"] = boxes[3].x + boxWidth - 1,
+        ["y"] = boxes[3].y,
     }
 
-    local score = Score:new(boxes[2].x1 + 2, boxes[2].y1 + 2)
+    local score = Score:new(boxes[2].x + 2, boxes[2].y + 2)
     local scoreTimer = { 0, 0.01 } -- delay increment
 
     local this = {
@@ -77,6 +77,7 @@ end
 
 function Console:fire()
     self.bullets.counter = self.bullets.counter - 1
+    self.bullets.t = 0
 end
 
 function Console:outOfFuel()
