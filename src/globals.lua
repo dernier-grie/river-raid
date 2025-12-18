@@ -42,8 +42,6 @@ Quads.console = {
     ["score"] = love.graphics.newQuad(9, 22, 9, 9, Texture),
     ["fuel"] = love.graphics.newQuad(18, 22, 9, 9, Texture),
     ["fuelProgress"] = love.graphics.newQuad(27, 22, 1, 9, Texture),
-    ["boxStart"] = love.graphics.newQuad(28, 22, 2, 9, Texture),
-    ["boxEnd"] = love.graphics.newQuad(30, 22, 2, 9, Texture),
 }
 
 Quads.title = {
