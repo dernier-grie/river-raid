@@ -1,15 +1,17 @@
 Flier = {}
 
-local FLIER_TYPES = { "plane", "planeSmall" }
-local FLIER_DIMENSIONS = {
+local FLIERS_DIMENSIONS = {
     ["plane"] = { 14, 18 },
     ["planeSmall"] = { 12, 16 },
 }
 
 function Flier:new(x, y, type)
+    local dimensions = FLIERS_DIMENSIONS[type]
     local this = {
         ["x"] = x,
         ["y"] = y,
+        ["width"] = dimensions[1],
+        ["height"] = dimensions[2],
         ["type"] = type,
     }
 

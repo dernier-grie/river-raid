@@ -1,7 +1,6 @@
 Decoration = {}
 
-local DECORATION_TYPES = { "tree", "treeSmall", "house", "lighthouse", }
-local DECORATION_DIMENSIONS = {
+local DECORATIONS_DIMENSIONS = {
     ["tree"] = { 12, 14 },
     ["treeSmall"] = { 11, 13 },
     ["house"] = { 16, 11 },
@@ -9,9 +8,12 @@ local DECORATION_DIMENSIONS = {
 }
 
 function Decoration:new(x, y, type)
+    local dimensions = DECORATIONS_DIMENSIONS[type]
     local this = {
         ["x"] = x,
         ["y"] = y,
+        ["width"] = dimensions[1],
+        ["height"] = dimensions[2],
         ["type"] = type,
     }
 

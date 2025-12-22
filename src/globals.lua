@@ -70,7 +70,6 @@ Quads.bridge = {
     ["q4"] = love.graphics.newQuad(23, 31, 2, 17, Texture),
 }
 
-
 Quads.floaters = {
     ["platform"] = love.graphics.newQuad(61, 31, 16, 16, Texture),
     ["boat"] = love.graphics.newQuad(77, 34, 23, 13, Texture),
@@ -87,3 +86,18 @@ Quads.decorations = {
     ["house"] = love.graphics.newQuad(185, 37, 16, 11, Texture),
     ["lighthouse"] = love.graphics.newQuad(201, 37, 11, 11, Texture),
 }
+
+FloatersKey = {}
+for k, _ in pairs(Quads.floaters) do
+    table.insert(FloatersKey, k)
+end
+
+FliersKey = {}
+for k, _ in pairs(Quads.fliers) do
+    table.insert(FliersKey, k)
+end
+
+DecorationsKey = {}
+for k, _ in pairs(Quads.decorations) do
+    table.insert(DecorationsKey, k)
+end
