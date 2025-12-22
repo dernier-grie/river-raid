@@ -46,12 +46,12 @@ Quads.console = {
 
 Quads.title = {
     ["roughEdges"] = love.graphics.newQuad(44, 16, 45, 13, Texture),
-    ["leftWord"] = love.graphics.newQuad(89, 16, 14, 4, Texture),
-    ["rightWord"] = love.graphics.newQuad(103, 16, 16, 6, Texture),
-    ["shootWord"] = love.graphics.newQuad(119, 16, 18, 4, Texture),
-    ["leftKey"] = love.graphics.newQuad(89, 22, 11, 9, Texture),
-    ["rightKey"] = love.graphics.newQuad(100, 22, 11, 9, Texture),
-    ["shootKey"] = love.graphics.newQuad(111, 22, 30, 9, Texture),
+    ["leftWord"] = love.graphics.newQuad(89, 16, 14, 7, Texture),
+    ["rightWord"] = love.graphics.newQuad(103, 16, 16, 7, Texture),
+    ["shootWord"] = love.graphics.newQuad(119, 16, 18, 7, Texture),
+    ["leftKey"] = love.graphics.newQuad(89, 23, 11, 9, Texture),
+    ["rightKey"] = love.graphics.newQuad(100, 23, 11, 9, Texture),
+    ["shootKey"] = love.graphics.newQuad(111, 23, 30, 9, Texture),
 }
 
 Quads.pickups = {
