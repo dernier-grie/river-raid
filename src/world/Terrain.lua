@@ -59,3 +59,5 @@ function Terrain:draw()
     love.graphics.line(self.pointsLeft)
     love.graphics.line(self.pointsRight)
 end
+
+return Terrain

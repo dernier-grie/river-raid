@@ -20,3 +20,5 @@ end
 
 function BaseState:draw()
 end
+
+return BaseState

@@ -34,3 +34,5 @@ end
 function StateStack:clear()
     self.states = {}
 end
+
+return StateStack

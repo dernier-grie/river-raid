@@ -10,9 +10,11 @@ local DECORATIONS_DIMENSIONS = {
 
 function Decoration:new(x, y, type)
     local dimensions = DECORATIONS_DIMENSIONS[type]
-    local this = QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.decorations[type])
+    local this = Core.QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.decorations[type])
 
     self.__index = self
     setmetatable(this, self)
     return this
 end
+
+return Decoration

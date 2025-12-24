@@ -46,3 +46,5 @@ function Score:draw()
         love.graphics.draw(Texture, Quads.digits[letter[1]], letter[2], self.y)
     end
 end
+
+return Score

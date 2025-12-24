@@ -30,3 +30,5 @@ end
 function Pickup:draw()
     love.graphics.draw(Texture, Quads.pickups.fuel, self.x, self.y + self.yOffset)
 end
+
+return Pickup

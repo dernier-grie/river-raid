@@ -1,4 +1,4 @@
-TitleState = BaseState:new()
+TitleState = States.Base:new()
 
 local titleX, titleY = math.floor(WIDTH / 2 - 22.5), 30
 local wordsY = 80
@@ -28,7 +28,7 @@ function TitleState:update(dt)
     if love.keyboard.waspressed("space") then
         GStateStack:pop()
         GStateStack:push(
-            PlayState:new(self.terrain)
+            States.PlayState:new(self.terrain)
         )
     end
 end
@@ -45,3 +45,5 @@ function TitleState:draw()
     love.graphics.draw(Texture, Quads.title.leftKey, leftKeyX, keysY)
     love.graphics.draw(Texture, Quads.title.rightKey, rightKeyX, keysY)
 end
+
+return TitleState:new()

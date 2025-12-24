@@ -8,9 +8,11 @@ local FLIERS_DIMENSIONS = {
 
 function Flier:new(x, y, type)
     local dimensions = FLIERS_DIMENSIONS[type]
-    local this = QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.fliers[type])
+    local this = Core.QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.fliers[type])
 
     self.__index = self
     setmetatable(this, self)
     return this
 end
+
+return Flier

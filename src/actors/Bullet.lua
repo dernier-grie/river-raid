@@ -35,3 +35,5 @@ end
 function Bullet:draw()
     love.graphics.draw(Texture, Quads.bullet[self.quadIndex], self.x, self.y)
 end
+
+return Bullet

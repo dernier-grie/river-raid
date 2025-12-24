@@ -144,4 +144,4 @@ function Timer:reset()
     self.tweens = {}
 end
 
-return Timer:new()
+return Timer

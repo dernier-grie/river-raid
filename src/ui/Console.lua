@@ -22,9 +22,9 @@ function Console:new()
     }
 
     local boxes = {
-        LineBox:new(icons[1][2] + ICON_SIZE - 0.5, icons[1][3], boxWidth + 1.5, boxHeight),
-        LineBox:new(icons[2][2] + ICON_SIZE - 0.5, icons[2][3], boxWidth + 1.5, boxHeight),
-        LineBox:new(icons[3][2] + ICON_SIZE - 0.5, icons[3][3], boxWidth + 1.5, boxHeight),
+        UI.LineBox:new(icons[1][2] + ICON_SIZE - 0.5, icons[1][3], boxWidth + 1.5, boxHeight),
+        UI.LineBox:new(icons[2][2] + ICON_SIZE - 0.5, icons[2][3], boxWidth + 1.5, boxHeight),
+        UI.LineBox:new(icons[3][2] + ICON_SIZE - 0.5, icons[3][3], boxWidth + 1.5, boxHeight),
     }
 
     local bullets = {
@@ -52,7 +52,7 @@ function Console:new()
         ["y"] = boxes[3].y,
     }
 
-    local score = Score:new(boxes[2].x + 2, boxes[2].y + 2)
+    local score = UI.Score:new(boxes[2].x + 2, boxes[2].y + 2)
     local scoreTimer = { 0, 0.01 } -- delay increment
 
     local this = {
@@ -154,3 +154,5 @@ function Console:draw()
 
     self.score:draw()
 end
+
+return Console:new()

@@ -8,7 +8,7 @@ function love.load()
 
     GStateStack = StateStack:new(
         {
-            PlayState:new() -- TitleState:new()
+            States.Play:new() -- States.Title:new()
         }
     )
     love.keyboard.keypressed = {}

@@ -23,7 +23,7 @@ end
 
 function Player:getWidth()
     return self.width -
-    (self["banking"]) * math.abs(self["quadsIndex"] - self["quadsIndexStart"]) / self["quadsIndexGap"]
+        (self["banking"]) * math.abs(self["quadsIndex"] - self["quadsIndexStart"]) / self["quadsIndexGap"]
 end
 
 function Player:getFireXs()
@@ -53,3 +53,5 @@ function Player:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(Texture, Quads.plane[self.quadsIndex], self.x, self.y, 0, 1, 1, self.width / 2, self.height / 2)
 end
+
+return Player

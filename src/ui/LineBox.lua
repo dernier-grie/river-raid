@@ -28,3 +28,5 @@ end
 function LineBox:draw()
     love.graphics.line(self.points)
 end
+
+return LineBox

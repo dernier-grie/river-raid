@@ -1,15 +1,21 @@
-PlayState = BaseState:new()
+PlayState = States.Base:new()
 
 function PlayState:new(terrain)
-    local player = Player:new(WIDTH / 2, HEIGHT - PLANE_HEIGHT)
-    local _terrain = terrain or Terrain:new()
-    local console = Console:new()
+    local player = Actors.Player:new(WIDTH / 2, HEIGHT - PLANE_HEIGHT)
+    local _terrain = terrain or World.Terrain:new()
+    local console = UI.Console:new()
 
     local this = {
         ["player"] = player,
         ["terrain"] = _terrain,
         ["console"] = console,
-        ["bullets"] = {}
+        ["bridges"] = {},
+        ["bullets"] = {},
+        ["explosions"] = {},
+        ["pickups"] = {},
+        ["fliers"] = {},
+        ["floaters"] = {},
+        ["decorations"] = {},
     }
 
     self.__index = self
@@ -31,7 +37,7 @@ function PlayState:update(dt)
             height = self.player.height,
         })
         if shouldCrash then
-            GStateStack:push(BaseState:new()) -- actual gameover
+            GStateStack:push(States.Base:new()) -- actual gameover
         end
     end
 
@@ -42,23 +48,65 @@ function PlayState:update(dt)
         end
     end
 
+    for _, pickup in pairs(self.pickups) do
+        pickup:update(dt)
+    end
+
+    for k = #self.explosions, 1, -1 do
+        self.explosions[k]:update(dt)
+        if self.explosions[k].outOfTime then
+            table.remove(self.explosions, k)
+        end
+    end
+
     if love.keyboard.waspressed("space") and self.console:canFire() then
         local x1, x2 = self.player:getFireXs()
         self.console:fire()
-        table.insert(self.bullets, Bullet:new(x1, self.player.y - self.player.height / 2, -1))
-        table.insert(self.bullets, Bullet:new(x2, self.player.y - self.player.height / 2, -1))
+        table.insert(self.bullets, Actors.Bullet:new(x1, self.player.y - self.player.height / 2, -1))
+        table.insert(self.bullets, Actors.Bullet:new(x2, self.player.y - self.player.height / 2, -1))
     end
 
     if self.console.outOfFuel then
-        GStateStack:push(BaseState:new()) -- actual gameover
+        GStateStack:push(States.Base:new()) -- actual gameover
     end
 end
 
 function PlayState:draw()
     self.terrain:draw()
+
     self.player:draw()
+
+    love.graphics.setColor(1, 1, 1)
     for _, bullet in pairs(self.bullets) do
         bullet:draw()
     end
+
+    for _, pickup in pairs(self.pickups) do
+        pickup:draw()
+    end
+
+
+    for _, floater in pairs(self.floaters) do
+        floater:draw()
+    end
+
+    for _, flier in pairs(self.fliers) do
+        flier:draw()
+    end
+
+    for _, explosion in pairs(self.explosions) do
+        explosion:draw()
+    end
+
+    for _, decoration in pairs(self.decorations) do
+        decoration:draw()
+    end
+
+    for _, bridge in pairs(self.bridges) do
+        bridge:draw()
+    end
+
     self.console:draw()
 end
+
+return PlayState:new()

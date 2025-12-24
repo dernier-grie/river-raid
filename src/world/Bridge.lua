@@ -39,3 +39,5 @@ function Bridge:draw()
         love.graphics.draw(Texture, Quads.bridge[sprite[1]], sprite[2], self.y)
     end
 end
+
+return Bridge

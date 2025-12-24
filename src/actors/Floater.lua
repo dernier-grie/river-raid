@@ -8,9 +8,11 @@ local FLOATERS_DIMENSIONS = {
 
 function Floater:new(x, y, type)
     local dimensions = FLOATERS_DIMENSIONS[type]
-    local this = QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.floaters[type])
+    local this = Core.QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.floaters[type])
 
     self.__index = self
     setmetatable(this, self)
     return this
 end
+
+return Floater

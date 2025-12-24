@@ -33,3 +33,5 @@ end
 function Explosion:draw()
     love.graphics.draw(Texture, Quads.explosion[self.quadIndex], self.x, self.y, 0, 1, 1, self.size / 2, self.size / 2)
 end
+
+return Explosion

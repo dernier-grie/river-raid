@@ -17,3 +17,5 @@ end
 function QuadRect:draw()
     love.graphics.draw(Texture, self.quad, self.x, self.y)
 end
+
+return QuadRect

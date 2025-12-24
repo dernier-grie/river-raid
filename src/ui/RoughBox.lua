@@ -19,3 +19,5 @@ function RoughBox:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height - INSET_BOTTOM_RIGHT)
     love.graphics.rectangle("fill", self.x, self.y, self.width - INSET_BOTTOM_RIGHT, self.height)
 end
+
+return RoughBox

@@ -55,3 +55,5 @@ function Islet:draw()
         love.graphics.line(segment[1], self.y4, segment[2], self.y4)
     end
 end
+
+return Islet

@@ -1,22 +1,37 @@
 require "src.globals"
+Timer = require "src.lib.Timer"
 
-require "src.Player"
-require "src.Terrain"
-require "src.Console"
-require "src.LineBox"
-require "src.RoughBox"
-require "src.Score"
-require "src.Bullet"
-require "src.Pickup"
-require "src.Explosion"
-require "src.QuadRect"
-require "src.Decoration"
-require "src.Flier"
-require "src.Floater"
-require "src.Bridge"
-require "src.Islet"
+Core = {
+    QuadRect = require "src.core.QuadRect",
+}
 
-require "src.StateStack"
-require "src.states.BaseState"
-require "src.states.TitleState"
-require "src.states.PlayState"
+UI = {
+    Score    = require "src.ui.Score",
+    LineBox  = require "src.ui.LineBox",
+    RoughBox = require "src.ui.RoughBox"
+}
+UI.Console = require "src.ui.Console"
+
+
+Actors = {
+    Player    = require "src.actors.Player",
+    Bullet    = require "src.actors.Bullet",
+    Explosion = require "src.actors.Explosion",
+    Pickup    = require "src.actors.Pickup",
+    Flier     = require "src.actors.Flier",
+    Floater   = require "src.actors.Floater"
+}
+
+World = {
+    Terrain    = require "src.world.Terrain",
+    Bridge     = require "src.world.Bridge",
+    Islet      = require "src.world.Islet",
+    Decoration = require "src.world.Decoration"
+}
+
+StateStack = require "src.states.StateStack"
+States = {
+    Base = require "src.states.BaseState",
+}
+States.Title = require "src.states.TitleState"
+States.Play = require "src.states.PlayState"
