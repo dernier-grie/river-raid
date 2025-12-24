@@ -1,4 +1,5 @@
 Flier = {}
+setmetatable(Flier, { __index = QuadRect })
 
 local FLIERS_DIMENSIONS = {
     ["plane"] = { 14, 18 },
@@ -7,19 +8,9 @@ local FLIERS_DIMENSIONS = {
 
 function Flier:new(x, y, type)
     local dimensions = FLIERS_DIMENSIONS[type]
-    local this = {
-        ["x"] = x,
-        ["y"] = y,
-        ["width"] = dimensions[1],
-        ["height"] = dimensions[2],
-        ["type"] = type,
-    }
+    local this = QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.fliers[type])
 
     self.__index = self
     setmetatable(this, self)
     return this
-end
-
-function Flier:draw()
-    love.graphics.draw(Texture, Quads.fliers[self.type], self.x, self.y)
 end

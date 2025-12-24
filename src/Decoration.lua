@@ -1,4 +1,5 @@
 Decoration = {}
+setmetatable(Decoration, { __index = QuadRect })
 
 local DECORATIONS_DIMENSIONS = {
     ["tree"] = { 12, 14 },
@@ -9,19 +10,9 @@ local DECORATIONS_DIMENSIONS = {
 
 function Decoration:new(x, y, type)
     local dimensions = DECORATIONS_DIMENSIONS[type]
-    local this = {
-        ["x"] = x,
-        ["y"] = y,
-        ["width"] = dimensions[1],
-        ["height"] = dimensions[2],
-        ["type"] = type,
-    }
+    local this = QuadRect.new(self, x, y, dimensions[1], dimensions[2], Quads.decorations[type])
 
     self.__index = self
     setmetatable(this, self)
     return this
-end
-
-function Decoration:draw()
-    love.graphics.draw(Texture, Quads.decorations[self.type], self.x, self.y)
 end
