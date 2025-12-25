@@ -62,6 +62,7 @@ function PlayState:update(dt)
             if bullet:collides(flier) then
                 table.remove(self.fliers, kf)
                 table.remove(self.bullets, kb)
+                self:explode(flier)
             end
         end
     end
@@ -73,6 +74,7 @@ function PlayState:update(dt)
             if bullet:collides(floater) then
                 table.remove(self.floaters, kf)
                 table.remove(self.bullets, kb)
+                self:explode(floater)
             end
         end
     end
@@ -136,6 +138,18 @@ function PlayState:draw()
     end
 
     self.console:draw()
+end
+
+function PlayState:explode(rect)
+    local width, height = rect.width, rect.height
+    local particles = { love.math.random(1, 2), love.math.random(1, 2) }
+    for i = 1, particles[1] do
+        local x = math.floor(rect.x + width / 2 + (love.math.random() - 0.5) * (width) / particles[1] * i)
+        for j = 1, particles[2] do
+            local y = math.floor(rect.y + height / 2 + (love.math.random() - 0.5) * (height) / particles[2] * j)
+            table.insert(self.explosions, Explosion:new(x, y, love.math.random() * 0.4 + 0.1))
+        end
+    end
 end
 
 return PlayState:new()
