@@ -38,11 +38,4 @@ function Bullet:draw()
     love.graphics.draw(Texture, Quads.bullet[self.quadIndex], self.x, self.y)
 end
 
-function Bullet:collides(rect)
-    if self.x + self.width < rect.x or self.x > rect.x + rect.width or self.y + self.height < rect.y or self.y > rect.y + rect.height then
-        return false
-    end
-    return true
-end
-
 return Bullet
