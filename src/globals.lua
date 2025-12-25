@@ -77,7 +77,7 @@ Quads.floaters = {
 
 Quads.fliers = {
     ["plane"] = love.graphics.newQuad(35, 30, 14, 18, Texture),
-    ["planeSmall"] = love.graphics.newQuad(48, 31, 12, 16, Texture)
+    ["planeSmall"] = love.graphics.newQuad(49, 31, 12, 16, Texture)
 }
 
 Quads.decorations = {

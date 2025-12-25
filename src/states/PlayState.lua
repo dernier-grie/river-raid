@@ -13,8 +13,12 @@ function PlayState:new(terrain)
         ["bullets"] = {},
         ["explosions"] = {},
         ["pickups"] = {},
-        ["fliers"] = {},
-        ["floaters"] = {},
+        ["fliers"] = {
+            Flier:new(40, 30, "plane")
+        },
+        ["floaters"] = {
+            Floater:new(40, 60, "boat")
+        },
         ["decorations"] = {},
     }
 
@@ -46,6 +50,17 @@ function PlayState:update(dt)
         if self.bullets[k].outOfBounds then
             table.remove(self.bullets, k)
         end
+    end
+
+    for _, flier in pairs(self.fliers) do
+        flier:update(dt)
+        if self.terrain:intersects(flier) then
+            flier:flip()
+        end
+    end
+
+    for _, floater in pairs(self.floaters) do
+        floater:update(dt)
     end
 
     for _, pickup in pairs(self.pickups) do
