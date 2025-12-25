@@ -14,6 +14,7 @@ function Player:new(x, y)
         ["quadsIndexStart"] = quadsIndexStart,
         ["quadsIndex"] = quadsIndexStart,
         ["quadsIndexGap"] = math.floor(#Quads.plane / 2),
+        ["destroyed"] = false
     }
 
     self.__index = self
@@ -30,6 +31,10 @@ function Player:getFireXs()
     local fireGap = PLANE_WIDTH / 6 +
         PLANE_WIDTH / 6 * (1 - math.abs(self.quadsIndex - self.quadsIndexStart) / self.quadsIndexGap)
     return self.x - fireGap, self.x + fireGap
+end
+
+function Player:destroy()
+    self.destroyed = true
 end
 
 function Player:update(dt)
@@ -50,8 +55,11 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(Texture, Quads.plane[self.quadsIndex], self.x, self.y, 0, 1, 1, self.width / 2, self.height / 2)
+    if not self.destroyed then
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.draw(Texture, Quads.plane[self.quadsIndex], self.x, self.y, 0, 1, 1, self.width / 2,
+            self.height / 2)
+    end
 end
 
 return Player

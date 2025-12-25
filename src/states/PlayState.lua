@@ -36,24 +36,6 @@ function PlayState:new(terrain)
 end
 
 function PlayState:update(dt)
-    self.player:update(dt)
-    self.console:update(dt)
-
-    local playerRect = {
-        x = self.player.x - self.player.width / 2,
-        y = self.player.y - self.player.height / 2,
-        width = self.player.width,
-        height = self.player.height,
-    }
-
-    if self.player.dx ~= 0 then
-        local shouldCrash = self.terrain:intersects(playerRect)
-        if shouldCrash then
-            -- gameover
-            self:explode(playerRect)
-        end
-    end
-
     for k, bullet in pairs(self.bullets) do
         bullet:update(dt)
         if bullet.outOfBounds then
@@ -74,13 +56,6 @@ function PlayState:update(dt)
                 self:explode(flier)
             end
         end
-
-        if collides(playerRect, flier) then
-            -- gameover
-            table.remove(self.fliers, kf)
-            self:explode(flier)
-            self:explode(playerRect)
-        end
     end
 
     for kf, floater in pairs(self.floaters) do
@@ -92,13 +67,6 @@ function PlayState:update(dt)
                 table.remove(self.bullets, kb)
                 self:explode(floater)
             end
-        end
-
-        if collides(playerRect, floater) then
-            -- gameover
-            table.remove(self.floaters, kf)
-            self:explode(floater)
-            self:explode(playerRect)
         end
     end
 
@@ -113,16 +81,54 @@ function PlayState:update(dt)
         end
     end
 
-    if love.keyboard.waspressed("space") and self.console:canFire() then
-        local x1, x2 = self.player:getFireXs()
-        self.console:fire()
-        table.insert(self.bullets, Actors.Bullet:new(x1, self.player.y - self.player.height / 2, -1))
-        table.insert(self.bullets, Actors.Bullet:new(x2, self.player.y - self.player.height / 2, -1))
-    end
+    if not self.player.destroyed then
+        self.console:update(dt)
+        self.player:update(dt)
 
-    if self.console.outOfFuel then
-        -- gameover
-        GStateStack:push(States.Base:new())
+        local width = self.player:getWidth()
+        local playerRect = {
+            x = self.player.x - width / 2,
+            y = self.player.y - self.player.height / 2,
+            width = width,
+            height = self.player.height,
+        }
+
+        if self.player.dx ~= 0 then
+            local shouldCrash = self.terrain:intersects(playerRect)
+            if shouldCrash then
+                self:explode(playerRect)
+                self.player:destroy()
+            end
+        end
+
+        for k, flier in pairs(self.fliers) do
+            if collides(playerRect, flier) then
+                table.remove(self.fliers, k)
+                self:explode(flier)
+                self:explode(playerRect)
+                self.player:destroy()
+            end
+        end
+
+        for k, floater in pairs(self.floaters) do
+            if collides(playerRect, floater) then
+                table.remove(self.floaters, k)
+                self:explode(floater)
+                self:explode(playerRect)
+                self.player:destroy()
+            end
+        end
+
+        if love.keyboard.waspressed("space") and self.console:canFire() then
+            local x1, x2 = self.player:getFireXs()
+            self.console:fire()
+            table.insert(self.bullets, Actors.Bullet:new(x1, self.player.y - self.player.height / 2, -1))
+            table.insert(self.bullets, Actors.Bullet:new(x2, self.player.y - self.player.height / 2, -1))
+        end
+
+        if self.console.outOfFuel then
+            self.player:destroy()
+        end
     end
 end
 
@@ -166,11 +172,11 @@ end
 
 function PlayState:explode(rect)
     local width, height = rect.width, rect.height
-    local particles = { math.random(1, 2), math.random(1, 2) }
-    for i = 0, particles[1] do
-        local x = math.floor(rect.x + width / 2 + (math.random() - 0.5) * (width) / (particles[1]) * i)
-        for j = 0, particles[2] do
-            local y = math.floor(rect.y + height / 2 + (math.random() - 0.5) * (height) / (particles[2]) * j)
+    local particles = { 2, 2 }
+    for _ = 1, particles[1] do
+        local x = rect.x + width / 2 + (love.math.random() - 0.5) * width
+        for _ = 1, particles[2] do
+            local y = rect.y + height / 2 + (love.math.random() - 0.5) * height
             table.insert(self.explosions, Explosion:new(x, y))
         end
     end
