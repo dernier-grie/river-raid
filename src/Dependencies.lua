@@ -1,10 +1,6 @@
 require "src.globals"
 Timer = require "src.lib.Timer"
 
-Core = {
-    QuadRect = require "src.core.QuadRect",
-}
-
 UI = {
     Score    = require "src.ui.Score",
     LineBox  = require "src.ui.LineBox",
