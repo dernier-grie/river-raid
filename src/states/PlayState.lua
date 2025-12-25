@@ -45,22 +45,36 @@ function PlayState:update(dt)
         end
     end
 
-    for k = #self.bullets, 1, -1 do
-        self.bullets[k]:update(dt)
-        if self.bullets[k].outOfBounds then
+    for k, bullet in pairs(self.bullets) do
+        bullet:update(dt)
+        if bullet.outOfBounds then
             table.remove(self.bullets, k)
         end
     end
 
-    for _, flier in pairs(self.fliers) do
+    for kf, flier in pairs(self.fliers) do
         flier:update(dt)
         if self.terrain:intersects(flier) then
             flier:flip()
         end
+
+        for kb, bullet in pairs(self.bullets) do
+            if bullet:collides(flier) then
+                table.remove(self.fliers, kf)
+                table.remove(self.bullets, kb)
+            end
+        end
     end
 
-    for _, floater in pairs(self.floaters) do
+    for kf, floater in pairs(self.floaters) do
         floater:update(dt)
+
+        for kb, bullet in pairs(self.bullets) do
+            if bullet:collides(floater) then
+                table.remove(self.floaters, kf)
+                table.remove(self.bullets, kb)
+            end
+        end
     end
 
     for _, pickup in pairs(self.pickups) do

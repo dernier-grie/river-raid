@@ -6,6 +6,8 @@ function Bullet:new(x, y, dy)
     local this = {
         ["x"] = x - BULLET_WIDTH / 2,
         ["y"] = y - BULLET_HEIGHT / 2,
+        ["width"] = BULLET_WIDTH,
+        ["height"] = BULLET_HEIGHT,
         ["dy"] = dy or -1,
         ["speed"] = BULLET_SPEED,
         ["quadTimer"] = 0,
@@ -34,6 +36,13 @@ end
 
 function Bullet:draw()
     love.graphics.draw(Texture, Quads.bullet[self.quadIndex], self.x, self.y)
+end
+
+function Bullet:collides(rect)
+    if self.x + self.width < rect.x or self.x > rect.x + rect.width or self.y + self.height < rect.y or self.y > rect.y + rect.height then
+        return false
+    end
+    return true
 end
 
 return Bullet
